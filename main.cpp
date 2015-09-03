@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
 #include <vector>
 #include <algorithm>
 #include <resource.h>
@@ -14,7 +15,8 @@ void sortAges();
 dogInfo getDogDetails();
 void addNewDog();
 void printDogs();
-int actionSelection();
+int menuSelection();
+void clearScreen();
 
 int main() {
 
@@ -24,7 +26,7 @@ int main() {
         cout << "0. Exit" << endl;
         cout << "1. Add a new dog" << endl;
         cout << "2. Sort dogs by age" << endl;
-        selection = actionSelection();
+        selection = menuSelection();
 	}
 
 }
@@ -39,14 +41,16 @@ void sortAges() {
 }
 
 void printDogs() {
-    system("CLS");
+    clearScreen();
     sortAges();
     for(int i = 0; i < dogs.size(); i++) {
         cout << "Dog no. " << i + 1 << ": " << dogs[i].dogName << " " << dogs[i].dogAge << endl;
     }
+    system("pause");
+    clearScreen();
 }
 
-int actionSelection() {
+int menuSelection() {
 
     int userSelection = getUserInteger();
     switch (userSelection)
@@ -57,7 +61,7 @@ int actionSelection() {
                 break;
         case 2: printDogs();
                 break;
-        default: cout << "Choose 1 for a new dog or 0 to exit! Press Enter to continue.";
+        default: cout << "Choose from the listed options! Press Enter to continue.";
                 cin.get();
     }
     return 1;
@@ -66,8 +70,10 @@ int actionSelection() {
 
 void addNewDog() {
 
+    clearScreen();
     dogInfo dog = getDogDetails();
     dogs.push_back(dog);
+    clearScreen();
 }
 
 dogInfo getDogDetails() {
@@ -95,4 +101,7 @@ string getUserString() {
 	string userString;
 	getline(cin, userString);
 	return userString;
+}
+void clearScreen() {
+    system("CLS");
 }
